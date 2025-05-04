@@ -19,6 +19,15 @@ $ meson build
 
 3. Compile the project:
 ```
-$ cd build && meson compile
+$ meson compile -C build
 ```
+
+## Testing
+The executable will be produced in `build/prom`.
+
+There is a custom target to run this executable post compilation:
+```
+$ meson compile -C build run
+```
+
 
