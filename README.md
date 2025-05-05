@@ -5,7 +5,6 @@ A simple, silly elf linker written from scratch!!
 
 ### Introduction
 Prometheus is built with [meson](https://mesonbuild.com/)! 
-
 Ensure `meson` and `ninja` is installed on your system.
 
 ### Building
