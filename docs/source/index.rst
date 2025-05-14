@@ -16,3 +16,7 @@ documentation for details.
    :caption: Contents:
    background
 
+Indices
+=======
+
+* :ref:`background`
