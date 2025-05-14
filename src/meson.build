@@ -1,2 +1,2 @@
-linklib = library('extras', 'extra.c', 'elf.c')
+linklib = library('elf_header', 'elf_header.c')
 
