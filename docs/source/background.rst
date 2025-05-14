@@ -14,7 +14,7 @@ Linker Basics
 
 Lets say we have two files, ``print.c`` and ``call_print.c``:
 
-``print.c``
+print.c
 
 .. code-block:: C 
    :linenos:
@@ -25,7 +25,8 @@ Lets say we have two files, ``print.c`` and ``call_print.c``:
         printf("meow!\n");
     }
 
-``call_print.c``
+
+call_print.c
 
 .. code-block:: C
    :linenos:
@@ -36,10 +37,11 @@ Lets say we have two files, ``print.c`` and ``call_print.c``:
         print_me();
     }
 
+
 If we were to compile call_print.c by itself, we end up with a linker error:
 
 .. code-block::
-     ❯ gcc call_print.c
+    ❯ gcc call_print.c
     /usr/bin/ld: /tmp/cc5dtrRn.o: in function ``main':
     call_print.c:(.text+0x5): undefined reference to ``print_me'
     collect2: error: ld returned 1 exit status
