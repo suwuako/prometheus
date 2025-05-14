@@ -15,7 +15,9 @@ Linker Basics
 Lets say we have two files, ``print.c`` and ``call_print.c``:
 
 ``print.c``
+
 .. code-block:: C 
+   :linenos:
 
     #include <stdio.h>
 
@@ -24,7 +26,9 @@ Lets say we have two files, ``print.c`` and ``call_print.c``:
     }
 
 ``call_print.c``
+
 .. code-block:: C
+   :linenos:
 
     void print_me();
 
@@ -33,6 +37,7 @@ Lets say we have two files, ``print.c`` and ``call_print.c``:
     }
 
 If we were to compile call_print.c by itself, we end up with a linker error:
+
 .. code-block::
      ❯ gcc call_print.c
     /usr/bin/ld: /tmp/cc5dtrRn.o: in function ``main':
