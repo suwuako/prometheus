@@ -13,7 +13,6 @@ Linker Basics
 *************
 
 Lets say we have two files, ``print.c`` and ``call_print.c``:
-
 print.c
 
 .. code-block:: C 
@@ -128,6 +127,7 @@ has a matching defined symbol elsewhere to determine what type of symbol it is t
 the two object files together!! Isn't that cool??
 
 References
-==========
+**********
+
 https://stackoverflow.com/questions/6666805/what-does-each-column-of-objdumps-symbol-table-mean
 https://sourceware.org/binutils/docs/binutils/objdump.html#index-symbol-table-entries_002c-printing
