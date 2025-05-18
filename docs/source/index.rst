@@ -6,9 +6,13 @@
 Prometheus documentation
 ========================
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
+Prometheus is a simple, silly linker written from scratch! This isn't that serious of a
+project, instead aiming to be more of an educational experience on how linkers work in
+general!
+
+Documentation will be split in two parts: The theory behind the linking process and
+how it's applied and the actual documentation for the code itself. Hopefully you'll find
+the knowledge here useful as well!! :D
 
 
 .. toctree::
@@ -16,8 +20,3 @@ documentation for details.
    :caption: Contents:
 
    background
-
-Indices
-=======
-
-* :ref:`background`

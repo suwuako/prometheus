@@ -1,5 +1,5 @@
 Background Information
-======================
+######################
 
 Compilation
 ***********
