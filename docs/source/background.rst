@@ -77,8 +77,8 @@ Whats inside an object file?
 ****************************
 
 We will be using objdump to view the contents of the symbol table with each object file!
-We need to specify what we want from the file, which is the contents of the symbol table.
-This can be achieved with `-t`:
+We need to specify what we want to read from the file, which is the contents of the symbol 
+table. This can be achieved with `-t`:
 
 -t, --syms               Display the contents of the symbol table(s)
 
@@ -118,7 +118,7 @@ connected with any section), or *UND* if the section is referenced in the file b
 dumped, but not defined there.
 
 
-Using this, lets then look at ``call_print.o``'s symbols': We can see that there is a symbol
+Using this, lets then look at ``call_print.o``'s symbols: We can see that there is a symbol
 called ``print_me`` that is called! We can then determine that it is a unknown symbol that is
 referenced in ``call_print.o`` but has no definition there. If we then look at ``print.o``,
 we find that there is a (g)lobal (F)unction called print_me. We can thus infer that
