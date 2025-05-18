@@ -34,3 +34,8 @@ There is a custom target to run this executable post compilation:
 ```
 $ meson compile -C build run
 ```
+### Documentation
+Documentation is built with Readthedocs. This includes both how linkers and elf files work,
+alongside actual project documentation!
+
+Documentation can be found [here.](https://prom.readthedocs.io/en/latest/)
