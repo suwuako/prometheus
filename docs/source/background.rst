@@ -77,9 +77,9 @@ Whats inside an object file?
 
 We will be using objdump to view the contents of the symbol table with each object file!
 We need to specify what we want to read from the file, which is the contents of the symbol 
-table. This can be achieved with `-t`:
+table. This can be achieved with the `-t` flag:
 
--t, --syms               Display the contents of the symbol table(s)
+-t, --syms:   Display the contents of the symbol table(s)
 
 .. code-block:: Bash
 
@@ -112,9 +112,7 @@ Lets unpack this. Lets first look at the objdump spec for symbol entires:
 - The second column (l, g) implies if the current symbol is (l)ocal or (g)lobal.
 - The third column (d) implies that its a (d)ebugging symbol.
 - The fourth column (f, F) implies if the symbol is a (F)unction or a (f)ile.
-- The fifth column (*ABS*, *UND*, .text) implies if the section is absolute (ie not
-connected with any section), or *UND* if the section is referenced in the file being
-dumped, but not defined there.
+- The fifth column (*ABS*, *UND*, .text) implies if the section is absolute (ie not connected with any section), or *UND* if the section is referenced in the file being dumped, but not defined there.
 
 
 Using this, lets then look at ``call_print.o``'s symbols: We can see that there is a symbol
@@ -130,4 +128,5 @@ References
 **********
 
 https://stackoverflow.com/questions/6666805/what-does-each-column-of-objdumps-symbol-table-mean
+
 https://sourceware.org/binutils/docs/binutils/objdump.html#index-symbol-table-entries_002c-printing

@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Prometheus documentation
-========================
+########################
 
 Prometheus is a simple, silly linker written from scratch! This isn't that serious of a
 project, instead aiming to be more of an educational experience on how linkers work in
