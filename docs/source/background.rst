@@ -109,15 +109,11 @@ This can be achieved with `-t`:
 
 Lets unpack this. Lets first look at the objdump spec for symbol entires:
 
-The first column is the symbol's value (or address offset!).
-
-The second column (l, g) implies if the current symbol is (l)ocal or (g)lobal.
-
-The third column (d) implies that its a (d)ebugging symbol.
-
-The fourth column (f, F) implies if the symbol is a (F)unction or a (f)ile.
-
-The fifth column (*ABS*, *UND*, .text) implies if the section is absolute (ie not
+- The first column is the symbol's value (or address offset!).
+- The second column (l, g) implies if the current symbol is (l)ocal or (g)lobal.
+- The third column (d) implies that its a (d)ebugging symbol.
+- The fourth column (f, F) implies if the symbol is a (F)unction or a (f)ile.
+- The fifth column (*ABS*, *UND*, .text) implies if the section is absolute (ie not
 connected with any section), or *UND* if the section is referenced in the file being
 dumped, but not defined there.
 
