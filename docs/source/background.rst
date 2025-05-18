@@ -40,8 +40,8 @@ call_print.c
 
 If we were to compile call_print.c by itself, we end up with a linker error:
 
-.. code-block:: Bash
-    ❯ gcc call_print.c
+.. code-block::
+    $ gcc call_print.c
     /usr/bin/ld: /tmp/cc5dtrRn.o: in function ``main':
     call_print.c:(.text+0x5): undefined reference to ``print_me'
     collect2: error: ld returned 1 exit status
@@ -51,7 +51,7 @@ but there is no **definition** for ``print_me`` in ``call_print.c``. The declara
 exists in ``print.c``. As a result, we are trying to call code that doesn't exist! Lets try
 to compile this time with ``print.c`` as an argument for gcc.
 
-.. code-block:: Bash
+.. code-block::
     ~/temp/linking ❯ gcc print.c call_print.c
 
     ~/temp/linking ❯ ./a.out
@@ -61,7 +61,7 @@ It compiles and links properly! So what actaully happened in between? We can tak
 closer look by telling gcc to compile both ``print.c`` and ``call_print.c`` as object files
 using the ``-c`` flag.
 
-.. code-block:: Bash
+.. code-block::
     ~/temp/linking ❯ gcc -c print.c call_print.c
 
     ~/temp/linking ❯ ls
