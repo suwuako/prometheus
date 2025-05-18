@@ -41,6 +41,7 @@ call_print.c
 If we were to compile call_print.c by itself, we end up with a linker error:
 
 .. code-block::
+
     $ gcc call_print.c
     /usr/bin/ld: /tmp/cc5dtrRn.o: in function ``main':
     call_print.c:(.text+0x5): undefined reference to ``print_me'
@@ -52,6 +53,7 @@ exists in ``print.c``. As a result, we are trying to call code that doesn't exis
 to compile this time with ``print.c`` as an argument for gcc.
 
 .. code-block::
+
     ~/temp/linking ❯ gcc print.c call_print.c
 
     ~/temp/linking ❯ ./a.out
@@ -62,6 +64,7 @@ closer look by telling gcc to compile both ``print.c`` and ``call_print.c`` as o
 using the ``-c`` flag.
 
 .. code-block::
+
     ~/temp/linking ❯ gcc -c print.c call_print.c
 
     ~/temp/linking ❯ ls
