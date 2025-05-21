@@ -38,4 +38,4 @@ $ meson compile -C build run
 Documentation is built with Readthedocs. This includes both how linkers and elf files work,
 alongside actual project documentation!
 
-Documentation can be found [here.](https://prom.readthedocs.io/en/latest/)
+Documentation can be found on https://prometheus.suwuako.com
