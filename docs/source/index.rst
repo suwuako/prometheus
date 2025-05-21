@@ -20,3 +20,5 @@ the knowledge here useful as well!! :D
    :caption: Contents:
 
    background
+   dynamic-linking
+   elf-rundown
