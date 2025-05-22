@@ -25,8 +25,7 @@ with the shared library before loading it into memory!
 
 We are reusing our example code from background:
 
-``print.c``
-
+``print.c:``
 .. code-block:: C 
    :linenos:
 
@@ -37,8 +36,7 @@ We are reusing our example code from background:
     }
 
 
-``call_print.c``
-
+``call_print.c:``
 .. code-block:: C
    :linenos:
 
