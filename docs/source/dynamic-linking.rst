@@ -102,3 +102,4 @@ meowmeow you can see we now added ts, confirm if it works
 References
 **********
 https://medium.com/@bdov_/https-medium-com-bdov-c-dynamic-libraries-what-why-and-how-66cf777019a7
+https://www.cprogramming.com/tutorial/shared-libraries-linux-gcc.html
