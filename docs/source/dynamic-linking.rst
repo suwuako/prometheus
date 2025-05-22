@@ -79,6 +79,7 @@ fds
 blabla doesnt know where to look for libprint
 
 .. code-block:: bash
+
     ~/temp/linking ❯ WD="$(pwd)"                                                                                 git 01:16:14 PM
 
     ~/temp/linking ❯ echo $WD                                                                                    git 01:16:23 PM
@@ -90,14 +91,16 @@ blabla doesnt know where to look for libprint
 
     ~/temp/linking ❯ echo $LD_LIBRARY_PATH                                                                       git 01:17:43 PM
     /home/suwa/temp/linking:
-    ~/temp/linking ❯ export LD_LIBRARY_PATH   
+    ~/temp/linking ❯ export LD_LIBRARY_PATH
 
 meowmeow you can see we now added ts, confirm if it works
 
 .. code-block:: bash
+
     ~/temp/linking ❯ ./a.out                                                                                     git 01:19:26 PM
     meow!
 
+wow it works
 
 References
 **********
