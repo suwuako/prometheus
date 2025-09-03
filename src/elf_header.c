@@ -4,11 +4,11 @@
 
 #include "consts.h"
 #include "elf_header.h"
-#include "types.h"
 
 // reads the first 24 bytes until entry sizes diverse because of 32bit/64bit
 #define INITIAL_HEADER_SIZE 24
 
+/*
 void poll_header(FILE *obj) {
     // read from 0x00 -> 0x18 before diverging off 32/64bit entries
     // reads 24 bytes into header first
@@ -43,7 +43,9 @@ void poll_header(FILE *obj) {
         header.version[i] = fgetc(obj);
     }
 }
+*/
 
+/*
 bool check_magic(struct elf_header_content f) {
     const int ELF_MAGIC[ELF_MAGIC_SIZE] = {0x7f, 'E', 'L', 'F'};
     for (int i = 0; i < ELF_MAGIC_SIZE; i++) {
@@ -51,3 +53,4 @@ bool check_magic(struct elf_header_content f) {
     }
     return true;
 }
+*/
