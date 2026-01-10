@@ -10,6 +10,9 @@
 Args parse_args(int argc, char *argv[]) {
     Args ret = {
         .dump_header = false,
+        .dump_section_header = false,
+        .dump_program_header = false,
+        .dump_symtab = false,
         .path = {
             .set = false,
         },
@@ -24,6 +27,8 @@ Args parse_args(int argc, char *argv[]) {
             ret.dump_section_header = true;
         } else if (strcmp(cur_arg, DUMP_PROGRAM_HEADER_ARG) == 0 || strcmp(cur_arg, DUMP_PROGRAM_HEADER_ARG_LONG) == 0) {
             ret.dump_program_header = true;
+        } else if (strcmp(cur_arg, DUMP_SYMBOL_TABLE_ARG) == 0 || strcmp(cur_arg, DUMP_SYMBOL_TABLE_ARG_LONG) == 0) {
+            ret.dump_symtab = true;
         } else {
             char message_buffer[1000];
 

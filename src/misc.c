@@ -2,13 +2,21 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <unistd.h>
+#include <stdnoreturn.h>
 
 #include "../headers/dump_elf_header.h"
 #include "../headers/dump_section_header.h"
 #include "../headers/parse_args.h"
 #include "../headers/misc.h"
 
-void fatal_error(char *error_message) {
+bool is_32_bit(Elf_header header) {
+    if (header.ei_class == 1) {
+        return true;
+    }
+    return false;
+}
+
+noreturn void fatal_error(char *error_message) {
     fprintf(stderr, error_message);
     fprintf(stderr, "\n");
     exit(1);

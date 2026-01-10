@@ -4,12 +4,14 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdint.h>
+#include <stdnoreturn.h>
 
 #include "dump_elf_header.h"
 #include "parse_args.h"
 
 
-void fatal_error(char *error_message);
+bool is_32_bit(Elf_header header);
+noreturn void fatal_error(char *error_message);
 bool file_exists(char *path);
 bool file_readable(char *path);
 void print_args(Args args);
