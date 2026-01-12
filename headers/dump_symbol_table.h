@@ -3,6 +3,7 @@
 
 #include <elf.h>
 
+#include "hashmap.h"
 #include "dump_elf_header.h"
 #include "dump_section_header.h"
 
@@ -13,6 +14,6 @@ typedef struct symtab_entry {
 } Symtab_entry;
 
 void navigate_fd_to_symbol_table(FILE *fd, Section_header sh);
-Elf64_Sym *grab_symbol_table(Elf_header elf_header, Section_header *section_header, Args args);
+Hashmap **grab_symbol_table(Elf_header elf_header, Section_header *section_header, Args args);
 
 #endif

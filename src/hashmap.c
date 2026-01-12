@@ -7,19 +7,6 @@
 
 int HASHMAP_SIZE_LIM = 1000;
 
-int main() {
-    int *data = malloc(sizeof(int));
-    printf("data malloced at %p\n", data);
-    *data = 8;
-    Hashmap **hm = hashmap_new();
-    hashmap_insert("meow", (void *) data, hm);
-    Hashmap *r = hashmap_find("meow", hm);
-    printf("%s\n", r->key);
-    printf("%d\n", *((int *) r->entry));
-    r = hashmap_find("meow", hm);
-
-    hashmap_free(hm);
-}
 
 void hashmap_remove(char *key, Hashmap **map) {
     uint32_t i = hash(key);
@@ -78,6 +65,7 @@ Hashmap *hashmap_find(char *key, Hashmap **map) {
     if (strcmp(curr->key, key) == 0) {
         return curr;
     } 
+    exit(1);
 }
 
 void hashmap_insert(char *key, void *entry, Hashmap **map) {

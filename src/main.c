@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
     Program_header *program_headers = NULL;
     if (proghead_exists) program_headers = grab_program_headers(elf_header, args);
     
-    Elf64_Sym *symtab = grab_symbol_table(elf_header, section_headers);
+    Hashmap **symtab = grab_symbol_table(elf_header, section_headers, args);
 
     if (!proghead_exists && args.dump_program_header) fatal_error("-p doesn't work with object files without program headers!");
     if (args.dump_header) dump_header(elf_header);

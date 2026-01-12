@@ -148,3 +148,14 @@ void read_stream_until_null(FILE *fd) {
 
     printf(SH_NAME_ALIGN_STRING, result);
 }
+
+// gets the section header entry which points to symtab
+Section_header get_section_entry(Section_header *sh, Elf_header elf_header, int code) {
+    for (int i = 0; i < elf_header.e_shnum; i++) {
+        if (sh[i].sh_type == code) {
+            return sh[i];
+        }
+    }
+
+    fatal_error("could not find code in section headers?");
+}
