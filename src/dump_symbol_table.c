@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 
 #include "../headers/dump_symbol_table.h"
@@ -21,8 +23,25 @@ Elf64_Sym read_symbol_entry(FILE *fd, Section_header sh_symtab, Elf_header heade
     return ret;
 }
 
-char *get_symbol_name(Section_header *strtab, int offset) {
+char *get_symbol_name(Elf_header ehead, Section_header *shead, int offset, Args args) {
+    Section_header strtab = get_section_entry(shead, ehead, 0x3);
+    int file_offset = strtab.sh_offset;
+    FILE *fd = fopen(args.path.filepath, "r");
+    lseek(fileno(fd), file_offset + offset, SEEK_SET);
 
+    int strlen = 0;
+    char c;
+
+    while ((c = fgetc(fd)) != '\0') {
+        strlen++;
+    }
+    lseek(fileno(fd), file_offset + offset, SEEK_SET);
+    char *ret = calloc(strlen, sizeof(char));
+    for (int i = 0; i < strlen; i++) {
+        ret[i] = fgetc(fd);
+    }
+
+    return ret;
 }
 
 Hashmap **grab_symbol_table(Elf_header elf_header, Section_header *section_header, Args args) {
@@ -33,7 +52,12 @@ Hashmap **grab_symbol_table(Elf_header elf_header, Section_header *section_heade
     navigate_fd_to_symbol_table(fd, sh_symtab);
 
     for (int i = 0; i < entries; i++) {
+        Elf64_Sym *entry = malloc(sizeof(Elf64_Sym));
         Elf64_Sym symtab_entry = read_symbol_entry(fd, sh_symtab, elf_header);
+        memcpy(entry, &symtab_entry, sizeof(Elf64_Sym));
+
+        char *name = get_symbol_name(elf_header, section_header, symtab_entry.st_name, args);
+        hashmap_insert(name, entry, ret);
     }
 
     return ret;
