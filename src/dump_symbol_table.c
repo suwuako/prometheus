@@ -9,8 +9,20 @@ void navigate_fd_to_symbol_table(FILE *fd, Section_header sh) {
     lseek(fileno(fd), sh.sh_offset, SEEK_SET);
 }
 
+// gets the section header entry which points to symtab
+Section_header get_symtab_entry(Section_header *sh, Elf_header elf_header) {
+    for (int i = 0; i < elf_header.e_shnum; i++) {
+        if (sh[i].sh_type == 0x2) {
+            return sh[i];
+        }
+    }
+
+    fatal_error("could not find symtab in section headers?");
+}
 
 Elf64_Sym read_symbol_entry(FILE *fd, Section_header sh_symtab, Elf_header header) {
+    int entry_size = sh_symtab.sh_entsize;
+    
     Elf64_Sym ret = {
         .st_name = read_nbytes_better(header, fd, 4, 0),
         .st_info = read_nbytes_better(header, fd, 1, 0),
