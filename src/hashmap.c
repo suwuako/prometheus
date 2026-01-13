@@ -8,6 +8,23 @@
 int HASHMAP_SIZE_LIM = 1000;
 
 
+void hashmap_visualiser(Hashmap **map) {
+    for (int i = 0; i < HASHMAP_SIZE_LIM; i++) {
+        if (map[i] == NULL) continue;
+
+        printf("[%d]:", i);
+        hashmap_entry_visualiser(map[i]);
+    }
+}
+
+void hashmap_entry_visualiser(Hashmap *curr) {
+    while (curr != NULL) {
+        printf(" %s ->", curr->key);
+        curr = curr->next;
+    }
+    printf("NULL\n");
+}
+
 void hashmap_remove(char *key, Hashmap **map) {
     uint32_t i = hash(key);
     Hashmap *curr = map[i];
@@ -92,9 +109,7 @@ Hashmap *hashentry_new(char *key, void *entry) {
 
     ret->key = copy;
     ret->next = NULL;
-    printf("copying entry %p\n", entry);
     ret->entry = entry;
-    printf("out entry %p\n", ret->entry);
     return ret;
 }
 

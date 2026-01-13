@@ -23,5 +23,7 @@ void hashmap_insert(char *key, void *entry, Hashmap **map);
 Hashmap *hashentry_new(char *key, void *entry);
 Hashmap *hashmap_find(char *key, Hashmap **map);
 void hashmap_remove(char *key, Hashmap **map);
+void hashmap_entry_visualiser(Hashmap *curr);
+void hashmap_visualiser(Hashmap **map);
 
 #endif
