@@ -2,6 +2,7 @@
 #define PARSE_ARGS_H
 
 #include <stdbool.h>
+#include <argp.h>
 
 
 #define DUMP_HEADER_ARG "-h"
