@@ -65,7 +65,10 @@ Hashmap *hashmap_find(char *key, Hashmap **map) {
     if (strcmp(curr->key, key) == 0) {
         return curr;
     } 
+<<<<<<< HEAD
     exit(1);
+=======
+>>>>>>> e757470 (feat: hashmap w/ void *)
 }
 
 void hashmap_insert(char *key, void *entry, Hashmap **map) {
