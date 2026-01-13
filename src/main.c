@@ -23,6 +23,7 @@ int main(int argc, char *argv[]) {
     if (proghead_exists) program_headers = grab_program_headers(elf_header, args);
     
     Hashmap **symtab = grab_symbol_table(elf_header, section_headers, args);
+    hashmap_visualiser(symtab);
 
     if (!proghead_exists && args.dump_program_header) fatal_error("-p doesn't work with object files without program headers!");
     if (args.dump_header) dump_header(elf_header);
@@ -32,6 +33,7 @@ int main(int argc, char *argv[]) {
 
     if (program_headers != NULL) free(program_headers);
     free(section_headers);
+    hashmap_free(symtab);
 
     return 0;
 }
