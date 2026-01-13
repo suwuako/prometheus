@@ -2,13 +2,21 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <unistd.h>
+#include <stdnoreturn.h>
 
 #include "../headers/dump_elf_header.h"
 #include "../headers/dump_section_header.h"
 #include "../headers/parse_args.h"
 #include "../headers/misc.h"
 
-void fatal_error(char *error_message) {
+bool is_32_bit(Elf_header header) {
+    if (header.ei_class == 1) {
+        return true;
+    }
+    return false;
+}
+
+noreturn void fatal_error(char *error_message) {
     fprintf(stderr, error_message);
     fprintf(stderr, "\n");
     exit(1);
@@ -139,4 +147,15 @@ void read_stream_until_null(FILE *fd) {
     while ((result[i] = fgetc(fd)) != '\0') i++;
 
     printf(SH_NAME_ALIGN_STRING, result);
+}
+
+// gets the section header entry which points to symtab
+Section_header get_section_entry(Section_header *sh, Elf_header elf_header, int code) {
+    for (int i = 0; i < elf_header.e_shnum; i++) {
+        if (sh[i].sh_type == code) {
+            return sh[i];
+        }
+    }
+
+    fatal_error("could not find code in section headers?");
 }

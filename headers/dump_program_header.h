@@ -1,22 +1,11 @@
 #ifndef DUMP_PROGRAM_HEADER_H
 #define DUMP_PROGRAM_HEADER_H
 
+#include <elf.h>
+
+
 #include "dump_elf_header.h"
 #include "parse_args.h"
-
-#define PT_NULL         0x00000000  /* Program header table entry unused */
-#define PT_LOAD         0x00000001  /* Loadable program segment */
-#define PT_DYNAMIC      0x00000002  /* Dynamic linking information */
-#define PT_INTERP       0x00000003  /* Program interpreter path name */
-#define PT_NOTE         0x00000004  /* Auxiliary information */
-#define PT_SHLIB        0x00000005  /* Reserved */
-#define PT_PHDR         0x00000006  /* Entry for header table itself */
-#define PT_TLS          0x00000007  /* Thread lcoal storage template */
-#define PT_LOOS         0x60000000  /* Start of OS-specific */
-#define PT_HIOS         0x6FFFFFFF  /* End of OS-specific */
-#define PT_LOPROC       0x70000000  /* Start of processor-specific */
-#define PT_HIPROC       0x7FFFFFFF
-
 
 
 typedef struct program_header {

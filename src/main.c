@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <elf.h>
 
 #include "../headers/parse_args.h"
 #include "../headers/misc.h"
 #include "../headers/dump_elf_header.h"
 #include "../headers/dump_section_header.h"
 #include "../headers/dump_program_header.h"
+#include "../headers/dump_symbol_table.h"
 
 int main(int argc, char *argv[]) {
     printf("== hello, prom == \n\n");
@@ -14,12 +16,13 @@ int main(int argc, char *argv[]) {
     print_args(args);
 
     Elf_header elf_header = grab_elf_header(args);
+    if (is_32_bit(elf_header)) fatal_error("Linker only will work with 64-bit systems");
     Section_header *section_headers = grab_all_section_headers(elf_header, args);
     bool proghead_exists = program_header_exists(elf_header);
     Program_header *program_headers = NULL;
-    if (proghead_exists) 
-        program_headers = grab_program_headers(elf_header, args);
-
+    if (proghead_exists) program_headers = grab_program_headers(elf_header, args);
+    
+    Hashmap **symtab = grab_symbol_table(elf_header, section_headers, args);
 
     if (!proghead_exists && args.dump_program_header) fatal_error("-p doesn't work with object files without program headers!");
     if (args.dump_header) dump_header(elf_header);

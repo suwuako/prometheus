@@ -3,8 +3,9 @@
 
 #include <stdint.h>
 
-#include "../headers/misc.h"
-#include "../headers/dump_elf_header.h"
+#include "misc.h"
+#include "dump_elf_header.h"
+
 
 #define SH_NAME_ALIGN_STRING "%20s"
 #define SH_TYPE_ALIGN_STRING "%16s"
