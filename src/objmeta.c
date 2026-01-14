@@ -18,12 +18,16 @@ void obj_clean(Objdata *obj) {
 }
 
 void dump_objdata(Objdata *obj, Args args) {
-    bool proghead_exists = program_header_exists(obj->eheader);
-    if (!proghead_exists && args.dump_program_header) fatal_error("-p doesn't work with object files without program headers!");
-    if (args.dump_header) dump_header(obj->eheader);
-    if (args.dump_section_header) dump_section_headers(obj->sheaders, obj->eheader, args, obj->path);
-    if (args.dump_program_header) dump_program_headers(obj->pheaders, obj->eheader, args);
-    if (args.dump_symtab) hashmap_visualiser(obj->symtab);
+    Objdata *curr = obj;
+    while (curr != NULL) {
+        bool proghead_exists = program_header_exists(curr->eheader);
+        if (!proghead_exists && args.dump_program_header) fatal_error("-p doesn't work with object files without program headers!");
+        if (args.dump_header) dump_header(curr->eheader);
+        if (args.dump_section_header) dump_section_headers(curr->sheaders, curr->eheader, args, curr->path);
+        if (args.dump_program_header) dump_program_headers(curr->pheaders, curr->eheader, args);
+        if (args.dump_symtab) hashmap_visualiser(curr->symtab);
+        curr = curr->next;
+    }
 }
 
 Objdata *get_objdata(Args *args) {
