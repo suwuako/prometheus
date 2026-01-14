@@ -23,14 +23,14 @@ Elf64_Sym read_symbol_entry(FILE *fd, Section_header sh_symtab, Elf_header heade
     return ret;
 }
 
-char *get_symbol_name(Elf_header ehead, Section_header shead, int offset, Args args) {
+char *get_symbol_name(Elf_header ehead, Section_header shead, int offset, Args args, char *fn) {
     Section_header strtab = shead;
     char buf[10000] = {};
     int i = 0;
     int len;
     char c;
     int file_offset = strtab.sh_offset;
-    FILE *fd = fopen(args.path.filepath, "r");
+    FILE *fd = fopen(fn, "r");
 
     fseek(fd, file_offset + offset, SEEK_SET);
     while ((c = fgetc(fd)) != '\0' && i < 10000) {
@@ -50,9 +50,10 @@ char *get_symbol_name(Elf_header ehead, Section_header shead, int offset, Args a
     return ret;
 }
 
-Hashmap **grab_symbol_table(Elf_header elf_header, Section_header *section_header, Args args) {
+Hashmap **grab_symbol_table(Elf_header elf_header, Section_header *section_header, Args args,
+        char *fn) {
     Hashmap **ret = hashmap_new();
-    FILE *fd = fopen(args.path.filepath, "r");
+    FILE *fd = fopen(fn, "r");
     Section_header sh_symtab = get_section_entry(section_header, elf_header, 0x2);
     int entries = sh_symtab.sh_size / sh_symtab.sh_entsize;
     navigate_fd_to_symbol_table(fd, sh_symtab);
@@ -62,7 +63,7 @@ Hashmap **grab_symbol_table(Elf_header elf_header, Section_header *section_heade
         Elf64_Sym symtab_entry = read_symbol_entry(fd, sh_symtab, elf_header);
         memcpy(entry, &symtab_entry, sizeof(Elf64_Sym));
 
-        char *name = get_symbol_name(elf_header, section_header[sh_symtab.sh_link], symtab_entry.st_name, args);
+        char *name = get_symbol_name(elf_header, section_header[sh_symtab.sh_link], symtab_entry.st_name, args, fn);
         hashmap_insert(name, entry, ret);
     }
     printf("done!\n");

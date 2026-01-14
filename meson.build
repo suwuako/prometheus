@@ -4,10 +4,10 @@ deps = [
     'src/misc.c', 'src/parse_args.c',
     'src/dump_elf_header.c', 'src/dump_section_header.c',
     'src/dump_program_header.c', 'src/hashmap.c',
-    'src/dump_symbol_table.c'
+    'src/dump_symbol_table.c', 'src/objmeta.c'
     ]
 
-bin = executable('dump', 'src/main.c', deps)
+bin = executable('prom', 'src/main.c', deps)
 
 run_target(
     'run',

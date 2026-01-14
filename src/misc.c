@@ -42,10 +42,14 @@ void print_args(Args args) {
     printf("arg flags:\n");
     printf("- dump header: %d\n", args.dump_header);
 
-    printf("- file:\n");
-    printf("\t- filename: %s\n", args.path.filepath);
-    printf("\t- set: %d\n", args.path.set);
-    printf("\t- len: %d\n", args.path.size);
+    Filepath *curr = args.path;
+    while (curr != NULL) {
+        printf("- file:\n");
+        printf("\t- filename: %s\n", curr->filepath);
+        printf("\t- set: %d\n", curr->set);
+        printf("\t- len: %d\n", curr->size);
+        curr = curr->next;
+    }
 }
 
 // reads nbytes before we have parsed an elf header
@@ -124,8 +128,8 @@ uint64_t read_nbytes_better(Elf_header header, FILE *fd, int bytes, bool variabl
 }
 
 // debug function to dump nbytes from a file offset.
-void DEBUG_DUMP_NBYTES(int offset, int n, Args args) {
-    FILE *fd = fopen(args.path.filepath, "r");
+void DEBUG_DUMP_NBYTES(int offset, int n, Args args, char *fn) {
+    FILE *fd = fopen(fn, "r");
 
     lseek(fileno(fd), offset, SEEK_SET);
     for (int i = 0 ; i < n; i++) {

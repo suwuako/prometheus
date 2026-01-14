@@ -24,21 +24,21 @@ void navigate_fd_to_program_index(Elf_header header, FILE *fd, int i) {
     lseek(fileno(fd), i * header.e_phentsize, SEEK_CUR);
 }
 
-Program_header *grab_program_headers(Elf_header header, Args args) {
+Program_header *grab_program_headers(Elf_header header, Args args, char *fn) {
     Program_header *ret = calloc(sizeof(Program_header), header.e_phnum);
 
     for (int i = 0; i < header.e_phnum; i++) {
-        Program_header prog = grab_program_header(header, args, i);
+        Program_header prog = grab_program_header(header, args, i, fn);
         ret[i] = prog;
     }
 
     return ret;
 }
 
-Program_header grab_program_header(Elf_header header, Args args, int index) {
+Program_header grab_program_header(Elf_header header, Args args, int index, char *fn) {
     Program_header ret = {};
     uint8_t BYTE_FORMAT = header.ei_class;
-    FILE *fd = fopen(args.path.filepath, "r");
+    FILE *fd = fopen(fn, "r");
     navigate_fd_to_program_header(header, fd);
     navigate_fd_to_program_index(header, fd, index);
 

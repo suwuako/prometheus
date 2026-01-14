@@ -16,9 +16,9 @@ void navigate_fd_to_section_header(Elf_header header, FILE *fd) {
     lseek(fileno(fd), entry_point, SEEK_SET);
 }
 
-Section_header grab_sect_header(Elf_header header, Args args, int index) {
+Section_header grab_sect_header(Elf_header header, Args args, int index, char *fn) {
     Section_header ret = {};
-    FILE *fd = fopen(args.path.filepath, "r");
+    FILE *fd = fopen(fn, "r");
     navigate_fd_to_section_header(header, fd);
     navigate_fd_to_section_index(header, fd, index);
 
@@ -37,18 +37,18 @@ Section_header grab_sect_header(Elf_header header, Args args, int index) {
     return ret;
 }
 
-Section_header *grab_all_section_headers(Elf_header header, Args args) {
+Section_header *grab_all_section_headers(Elf_header header, Args args, char *fn) {
     Section_header *all_headers = malloc(sizeof(Section_header) * header.e_shnum);
 
     for (int i = 0; i < header.e_shnum; i++) {
-        Section_header section = grab_sect_header(header, args, i);
+        Section_header section = grab_sect_header(header, args, i, fn);
         all_headers[i] = section;
     }
 
     return all_headers;
 }
 
-void dump_section_headers(Section_header *headers, Elf_header elf_header, Args args) {
+void dump_section_headers(Section_header *headers, Elf_header elf_header, Args args, char *fn) {
     printf("\n== section header dump ==\n\n");
     printf("elf header count: %ld\n"
             "shstrntab index: %ld\n\n", elf_header.e_shnum, elf_header.e_shstrndx);
@@ -57,7 +57,7 @@ void dump_section_headers(Section_header *headers, Elf_header elf_header, Args a
     printf("         "SH_FLAGS_ALIGN_STRING "       " SH_FLAGS_ALIGN_STRING "         " SH_FLAGS_ALIGN_STRING"", "addr", "offset", "size");
     printf("     "SH_FLAGS_ALIGN_STRING "     " SH_FLAGS_ALIGN_STRING "        "SH_FLAGS_ALIGN_STRING "      " SH_FLAGS_ALIGN_STRING"\n", "link", "info", "align", "entsize");
     for (int i = 0; i < elf_header.e_shnum; i++) {
-        print_and_format_section_header(headers[elf_header.e_shstrndx], headers[i], elf_header, i, args);
+        print_and_format_section_header(headers[elf_header.e_shstrndx], headers[i], elf_header, i, args, fn);
     }
 }
 
@@ -89,9 +89,10 @@ void print_sh_type_entry(uint64_t value) {
     printf(SH_TYPE_ALIGN_STRING, result);
 }
 
-void print_and_format_section_header(Section_header shname, Section_header h, Elf_header elf_header, int i, Args args) {
+void print_and_format_section_header(Section_header shname, Section_header h, Elf_header elf_header, int i, Args args,
+        char *fn) {
     int addr = shname.sh_offset + h.sh_name;
-    FILE *fd = fopen(args.path.filepath, "r");
+    FILE *fd = fopen(fn, "r");
     lseek(fileno(fd), addr, SEEK_SET);
 
     printf("[%2d] ", i);

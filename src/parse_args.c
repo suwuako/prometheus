@@ -31,7 +31,7 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state) {
             arguments->dump_symtab = 1;
             break;
         case ARGP_KEY_ARG:
-            char message_buffer[1000];
+            char message_buffer[10000] = {};
             char *cur_arg = arg;
 
             snprintf(message_buffer, sizeof(message_buffer), "ERROR: filepath '%s' doesn't exist!", cur_arg);
@@ -43,26 +43,42 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state) {
             char *filepath = malloc(sizeof(char) * len);
             strcpy(filepath, cur_arg);
 
-            arguments->path.size = len;
-            arguments->path.filepath = filepath;
-            arguments->path.set = true;
-            return 0;
+            Filepath *curr = arguments->path;
+            if (curr == NULL) {
+                arguments->file_count++;
+                arguments->path = malloc(sizeof(Filepath));
+                arguments->path->size = len;
+                arguments->path->filepath = filepath;
+                arguments->path->set = true;
+                arguments->path->next = NULL;
+                return 0;
+            }
+
+            while (curr->next != NULL) {
+                curr = curr->next;
+            }
+
+            arguments->file_count++;
+            curr->next = malloc(sizeof(Filepath));
+            curr->size = len;
+            curr->filepath = filepath;
+            curr->set = true;
+            curr->next = NULL;
         default:
             return ARGP_ERR_UNKNOWN;
     }
     return 0;
 }
 
-static struct argp argp = { options, parse_opt, "ARG1 ARG2", "A program to demonstrate argp" };
+static struct argp argp = { options, parse_opt, "[ELF file]", "A hybrid elf linker/dumper" };
 Args parse_args(int argc, char *argv[]) {
     Args ret = {
         .dump_header = false,
         .dump_section_header = false,
         .dump_program_header = false,
         .dump_symtab = false,
-        .path = {
-            .set = false,
-        },
+        .file_count = 0,
+        .path = NULL,
     };
     argp_parse(&argp, argc, argv, 0, 0, &ret);
     return ret;

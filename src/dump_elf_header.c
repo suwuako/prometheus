@@ -47,9 +47,9 @@ void dump_header(Elf_header header) {
     printf("\tsection header string table index:\t%ld\n", header.e_shstrndx);
 }
 
-Elf_header grab_elf_header(Args args) {
+Elf_header grab_elf_header(Args args, char *fn) {
     Elf_header ret = {};
-    FILE *fd = fopen(args.path.filepath, "r");
+    FILE *fd = fopen(fn, "r");
     check_and_set_magic(fd, &ret);
     ret.ei_class = getc(fd);
     ret.ei_data = getc(fd);

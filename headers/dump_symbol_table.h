@@ -14,7 +14,8 @@ typedef struct symtab_entry {
 } Symtab_entry;
 
 void navigate_fd_to_symbol_table(FILE *fd, Section_header sh);
-Hashmap **grab_symbol_table(Elf_header elf_header, Section_header *section_header, Args args);
-char *get_symbol_name(Elf_header ehead, Section_header shead, int offset, Args args);
+Hashmap **grab_symbol_table(Elf_header elf_header, Section_header *section_header, Args args,
+        char *fn);
+char *get_symbol_name(Elf_header ehead, Section_header shead, int offset, Args args, char *fn);
 
 #endif
