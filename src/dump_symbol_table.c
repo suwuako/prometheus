@@ -39,7 +39,6 @@ char *get_symbol_name(Elf_header ehead, Section_header shead, int offset, Args a
     }
 
     len = strlen(buf);
-    printf("%s, %d\n", buf, len);
 
     char *ret = calloc(len + 1, sizeof(char));
     for (int i = 0; i < len; i++) {
