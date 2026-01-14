@@ -17,7 +17,7 @@ bool file_readable(char *path);
 void print_args(Args args);
 uint64_t read_nbytes(FILE *fd, Elf_header *header, int byte_count, bool variable);
 uint64_t read_nbytes_better(Elf_header header, FILE *fd, int bytes, bool variable);
-void DEBUG_DUMP_NBYTES(int offset, int n, Args args);
+void DEBUG_DUMP_NBYTES(int offset, int n, Args args, char *fn);
 void read_stream_until_null(FILE *fd);
 struct section_header get_section_entry(struct section_header *sh, Elf_header elf_header, int code);
 

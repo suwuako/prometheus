@@ -2,6 +2,7 @@
 #define PARSE_ARGS_H
 
 #include <stdbool.h>
+#include <argp.h>
 
 
 #define DUMP_HEADER_ARG "-h"
@@ -17,11 +18,13 @@ typedef struct filepath {
     char *filepath;
     int size;
     bool set;             // is set when valid filepath is set
+    struct filepath *next;
 } Filepath;
 
 
 typedef struct args {
-    Filepath path;
+    int file_count;
+    Filepath *path;
     bool dump_header;
     bool dump_section_header;
     bool dump_program_header;
