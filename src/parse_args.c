@@ -36,6 +36,7 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state) {
 
             snprintf(message_buffer, sizeof(message_buffer), "ERROR: filepath '%s' doesn't exist!", cur_arg);
             // assume is the filepath if not a flag
+            printf("meow\n");
             if (!file_exists(cur_arg)) { fatal_error(message_buffer); }
             if (!file_readable(cur_arg)) { fatal_error("ERROR: unable to read file!"); }
 
@@ -53,6 +54,7 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state) {
                 arguments->path->next = NULL;
                 return 0;
             }
+            printf("meow2\n");
 
             while (curr->next != NULL) {
                 curr = curr->next;
@@ -64,6 +66,7 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state) {
             curr->filepath = filepath;
             curr->set = true;
             curr->next = NULL;
+            break;
         default:
             return ARGP_ERR_UNKNOWN;
     }
