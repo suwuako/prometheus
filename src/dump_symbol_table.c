@@ -49,6 +49,11 @@ char *get_symbol_name(Elf_header ehead, Section_header shead, int offset, Args a
     return ret;
 }
 
+// gets all symbol names and chucks it in an array.
+char **grab_symbol_names(Elf_header eh, Section_header *sh, Args args, char *fn) {
+
+}
+
 Hashmap **grab_symbol_table(Elf_header elf_header, Section_header *section_header, Args args,
         char *fn) {
     Hashmap **ret = hashmap_new();
