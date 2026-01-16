@@ -13,15 +13,20 @@ LinkedList *linkedlist_new(void *entry) {
     return r;
 }
 
-void linkedlist_append(LinkedList *head, void *entry) {
+LinkedList *linkedlist_append(LinkedList *head, void *entry) {
     LinkedList *item = linkedlist_new(entry);
     LinkedList *curr = head;
+
+    if (head == NULL) {
+        return head;
+    }
 
     while (curr->next != NULL) {
         curr = curr->next;
     }
 
     curr->next = item;
+    return head;
 }
 
 void linkedlist_free(void (*free_func)(void *), LinkedList *curr) {

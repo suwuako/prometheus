@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
     print_args(args);
     Objdata *obj = get_objdata(&args);
     dump_objdata(obj, args);
-    validate_objmeta(obj);
+    validate_objmeta(obj, args);
 
 
     return 0;

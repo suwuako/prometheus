@@ -3,6 +3,8 @@
 
 #include <elf.h>
 
+
+#include "linkedlist.h"
 #include "hashmap.h"
 #include "dump_elf_header.h"
 #include "dump_section_header.h"
@@ -17,5 +19,6 @@ void navigate_fd_to_symbol_table(FILE *fd, Section_header sh);
 Hashmap **grab_symbol_table(Elf_header elf_header, Section_header *section_header, Args args,
         char *fn);
 char *get_symbol_name(Elf_header ehead, Section_header shead, int offset, Args args, char *fn);
+LinkedList *grab_symbol_names(Elf_header eh, Section_header *sh, Args args, char *fn);
 
 #endif

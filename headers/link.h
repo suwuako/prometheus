@@ -11,6 +11,6 @@ enum st_info_type {
     FUNC, OBJECT, SECTION
 };
 
-void validate_objmeta(Objdata *head);
+void validate_objmeta(Objdata *head, Args args);
 
 #endif
