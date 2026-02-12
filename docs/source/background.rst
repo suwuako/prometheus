@@ -13,7 +13,7 @@ Linker Basics
 *************
 
 Lets say we have two files, ``print.c`` and ``call_print.c``:
-print.c
+``print.c``
 
 .. code-block:: C 
    :linenos:
@@ -25,7 +25,7 @@ print.c
     }
 
 
-call_print.c
+``call_print.c``
 
 .. code-block:: C
    :linenos:
