@@ -25,6 +25,25 @@ void hashmap_entry_visualiser(Hashmap *curr) {
     printf("NULL\n");
 }
 
+// pops a value from the hashmap
+void *hashmap_pop(Hashmap **map) {
+    int entry = -1;
+    for (int i = 0; i < HASHMAP_SIZE_LIM; i++) {
+        if (map[i] != NULL) {
+            entry = i;
+            break;
+        }
+    }
+
+    if (entry == -1) {
+        // nothing to pop, hashmap empty
+        return NULL;
+    }
+    void *ret = map[entry];
+    map[entry] = NULL;
+    return ret;
+}
+
 void hashmap_remove(char *key, Hashmap **map) {
     uint32_t i = hash(key);
     Hashmap *curr = map[i];
