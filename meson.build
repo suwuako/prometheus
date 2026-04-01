@@ -15,7 +15,6 @@ run_target(
     command: bin
 )
 
-'''
-run_target('run',
-    command : 'scripts/run.sh')
-'''
+
+stb_global_conflict = find_program('tests/STB_GLOBAL_CONFLICT/tester.sh')
+    test('stb_global_conflict', stb_global_conflict)
