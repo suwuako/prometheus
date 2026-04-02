@@ -9,6 +9,10 @@ bool shared_emachine(uint64_t base, uint64_t input) {
     return base == input;
 }
 
+bool etype_is_et_rel(Elf_header *header) {
+    return header->e_type == ET_REL;
+}
+
 // checks for stb_global symbol collision between files.
 // drains the symtab hashmap and inserts into global hashmap
 // collisions between equal values will crash
@@ -42,6 +46,7 @@ void stb_global_collision(Hashmap **file_symbols, Hashmap **globals, Objdata *fi
 // for linking to succeed:
 //
 // TODO:
+// - [ ] all files are relocatable (eheader->e_type is et_rel)
 // - [x] same e_machine
 // - [x] ensure no global bindings are shared between files
 // undefined external references (every symbol needs to have a corresponding address)
@@ -60,6 +65,9 @@ void validate_objmeta(Objdata *head, Args args) {
 
         if (!shared_emachine(shared_machine, eheader.e_machine))
             fatal_error("Different e_machine detected");
+
+        if (!etype_is_et_rel(&eheader))
+            fatal_error("File's e_type is not ET_REL");
 
         // we get a copy of allocated symtab because stb_global calls hashmap_pop 
         // which modifies the hashmap.

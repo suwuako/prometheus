@@ -38,3 +38,13 @@ test(
     depends: [bin],
     workdir: meson.project_source_root() / 'tests/STB_GLOBAL_NOCONFLICT'
 )
+
+test(
+    'et_rel_fail', 
+    find_program('python3'), 
+    args : [
+        files('tests/ET_REL_FAIL/tester.py'), bin
+    ],
+    depends: [bin],
+    workdir: meson.project_source_root() / 'tests/ET_REL_FAIL'
+)

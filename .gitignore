@@ -2,3 +2,4 @@ build/
 .cache/
 tags
 *.o
+*.out
