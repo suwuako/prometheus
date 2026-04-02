@@ -42,6 +42,7 @@ void stb_global_collision(Hashmap **file_symbols, Hashmap **globals, Objdata *fi
 // for linking to succeed:
 //
 // TODO:
+// - [ ] all files are relocatable (eheader->e_type is et_rel)
 // - [x] same e_machine
 // - [x] ensure no global bindings are shared between files
 // undefined external references (every symbol needs to have a corresponding address)
