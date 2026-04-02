@@ -28,3 +28,13 @@ test(
     depends: [bin],
     workdir: meson.project_source_root() / 'tests/STB_GLOBAL_CONFLICT'
 )
+
+test(
+    'stb_global_noconflict', 
+    find_program('python3'), 
+    args : [
+        files('tests/STB_GLOBAL_NOCONFLICT/tester.py'), bin
+    ],
+    depends: [bin],
+    workdir: meson.project_source_root() / 'tests/STB_GLOBAL_NOCONFLICT'
+)
