@@ -87,7 +87,6 @@ Hashmap **grab_symbol_table(Elf_header elf_header, Section_header *section_heade
         char *name = get_symbol_name(elf_header, section_header[sh_symtab.sh_link], symtab_entry.st_name, args, fn);
         hashmap_insert(name, entry, ret);
     }
-    printf("done!\n");
 
     return ret;
 }

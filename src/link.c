@@ -20,11 +20,11 @@ void stb_global_collision(Hashmap **file_symbols, Hashmap **globals, Objdata *fi
         Elf64_Sym *symbol = h_symbol->entry;
 
         // check if symbol is global
-        if (symbol->st_info != STB_GLOBAL) {
+        if (ELF64_ST_BIND(symbol->st_info) != STB_GLOBAL) {
             h_symbol = hashmap_pop(file_symbols);
             continue;
         }
-        
+
         // check if global symbol exists
         Hashmap *h;
         if((h = hashmap_find(sym_name, globals)) != NULL) {
@@ -32,6 +32,7 @@ void stb_global_collision(Hashmap **file_symbols, Hashmap **globals, Objdata *fi
             fatal_error("conflicting STB_GLOBAL detected");
         }
 
+        hashmap_visualiser(globals);
         hashmap_insert(sym_name, symbol, globals);
         hashmap_entry_free(h_symbol);
         h_symbol = hashmap_pop(file_symbols);
@@ -45,6 +46,7 @@ void stb_global_collision(Hashmap **file_symbols, Hashmap **globals, Objdata *fi
 // - [x] ensure no global bindings are shared between files
 // undefined external references (every symbol needs to have a corresponding address)
 void validate_objmeta(Objdata *head, Args args) {
+    printf("Checking std_global conflicts...\n");
     // ensure no global overlap
     Objdata *curr_obj = head;
     Hashmap **globals = hashmap_new();
@@ -62,7 +64,11 @@ void validate_objmeta(Objdata *head, Args args) {
         // we get a copy of allocated symtab because stb_global calls hashmap_pop 
         // which modifies the hashmap.
         Hashmap **symtab_dup = grab_symbol_table(eheader, sheader, args, path);
+
+        printf("adding globals from %s\n", path);
+        hashmap_visualiser(globals);
         stb_global_collision(symtab_dup, globals, curr_obj, args);
+        hashmap_visualiser(globals);
 
         curr_obj = curr_obj->next;
     }
