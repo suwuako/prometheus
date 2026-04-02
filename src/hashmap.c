@@ -25,6 +25,40 @@ void hashmap_entry_visualiser(Hashmap *curr) {
     printf("NULL\n");
 }
 
+// pops a value from the hashmap
+Hashmap *hashmap_pop(Hashmap **map) {
+    int entry = -1;
+    for (int i = 0; i < HASHMAP_SIZE_LIM; i++) {
+        if (map[i] != NULL) {
+            entry = i;
+            break;
+        }
+    }
+
+    if (entry == -1) {
+        // nothing to pop, hashmap empty
+        return NULL;
+    }
+
+    Hashmap *ret = map[entry];
+    Hashmap *prev = ret;
+
+    // return last Hashmap* of linked list
+    // relink last item to null
+    while(ret->next != NULL) {
+        prev = ret;
+        ret = ret->next;
+    }
+
+    if (prev == ret) {
+        map[entry] = NULL;
+    } else {
+        prev->next = NULL;
+    }
+
+    return ret;
+}
+
 void hashmap_remove(char *key, Hashmap **map) {
     uint32_t i = hash(key);
     Hashmap *curr = map[i];
@@ -66,8 +100,7 @@ Hashmap *hashmap_find(char *key, Hashmap **map) {
     Hashmap *curr = map[i];
 
     if (curr == NULL) {
-        printf("hashmap indexing died\n");
-        exit(1);
+        return NULL;
     }
 
     // terminates when:
@@ -82,7 +115,7 @@ Hashmap *hashmap_find(char *key, Hashmap **map) {
     if (strcmp(curr->key, key) == 0) {
         return curr;
     } 
-    exit(1);
+    return NULL;
 }
 
 void hashmap_insert(char *key, void *entry, Hashmap **map) {

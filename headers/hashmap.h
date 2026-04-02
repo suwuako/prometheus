@@ -25,5 +25,6 @@ Hashmap *hashmap_find(char *key, Hashmap **map);
 void hashmap_remove(char *key, Hashmap **map);
 void hashmap_entry_visualiser(Hashmap *curr);
 void hashmap_visualiser(Hashmap **map);
+Hashmap *hashmap_pop(Hashmap **map);
 
 #endif

@@ -3,6 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "../headers/linkedlist.h"
 #include "../headers/dump_symbol_table.h"
 
 void navigate_fd_to_symbol_table(FILE *fd, Section_header sh) {
@@ -50,8 +51,24 @@ char *get_symbol_name(Elf_header ehead, Section_header shead, int offset, Args a
 }
 
 // gets all symbol names and chucks it in an array.
-char **grab_symbol_names(Elf_header eh, Section_header *sh, Args args, char *fn) {
+LinkedList *grab_symbol_names(Elf_header eh, Section_header *sh, Args args, char *fn) {
+    LinkedList *head = NULL;
+    FILE *fd = fopen(fn, "r");
+    Section_header sh_symtab = get_section_entry(sh, eh, 0x2);
+    int entries = sh_symtab.sh_size / sh_symtab.sh_entsize;
+    navigate_fd_to_symbol_table(fd, sh_symtab);
 
+    for (int i = 0; i < entries; i++) {
+        Elf64_Sym *entry = malloc(sizeof(Elf64_Sym));
+        Elf64_Sym symtab_entry = read_symbol_entry(fd, sh_symtab, eh);
+        memcpy(entry, &symtab_entry, sizeof(Elf64_Sym));
+
+        char *name = get_symbol_name(eh, sh[sh_symtab.sh_link], symtab_entry.st_name, args, fn);
+        head = linkedlist_append(head, (void *) name);
+        free(entry);
+    }
+
+    return head;
 }
 
 Hashmap **grab_symbol_table(Elf_header elf_header, Section_header *section_header, Args args,
@@ -70,7 +87,6 @@ Hashmap **grab_symbol_table(Elf_header elf_header, Section_header *section_heade
         char *name = get_symbol_name(elf_header, section_header[sh_symtab.sh_link], symtab_entry.st_name, args, fn);
         hashmap_insert(name, entry, ret);
     }
-    printf("done!\n");
 
     return ret;
 }
