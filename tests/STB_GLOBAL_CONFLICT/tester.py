@@ -24,7 +24,10 @@ def main():
         cwd=cwd
     )
     if result.returncode == 0:
-        print("failed to correctly identy conflicting STB_GLOBALS")
+        print("failed to correctly identify conflicting STB_GLOBALS")
+        print(result.stdout)
+        print(result.stderr)
+
         exit(1)
     print("pass")
 
