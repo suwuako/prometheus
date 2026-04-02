@@ -1,0 +1,16 @@
+name: Build and Test
+on: [push, pull_request]
+jobs:
+  build_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      # Debian doesn't have a samurai package, and the time it would take to compile it would eclipse the time we would save by using it.
+      - name: Install dependencies
+        run: sudo apt install meson ninja-build
+      - name: Build
+        run: |
+          meson setup build
+          ninja -C build
+      - name: Test
+        run: ninja -C build test
