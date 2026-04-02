@@ -6,7 +6,7 @@ import sys
 
 linker_bin = sys.argv[1]
 
-def test_prom(prom_path: String, bin_path: String, cwd: String):
+def test_prom(prom_path: str, bin_path: str, cwd: str):
     result = subprocess.run(
         [prom_path, bin_path],
         capture_output=True, text=True,
