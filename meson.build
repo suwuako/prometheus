@@ -26,6 +26,5 @@ test(
         files('tests/STB_GLOBAL_CONFLICT/tester.py'), bin
     ],
     depends: [bin],
-    verbose: true,
     workdir: meson.project_source_root() / 'tests/STB_GLOBAL_CONFLICT'
 )
