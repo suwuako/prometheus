@@ -16,5 +16,15 @@ run_target(
 )
 
 
-stb_global_conflict = find_program('tests/STB_GLOBAL_CONFLICT/tester.sh')
-    test('stb_global_conflict', stb_global_conflict)
+'''
+tests (yuck!)
+'''
+test(
+    'stb_global_conflict', 
+    find_program('python3'), 
+    args : [
+        files('tests/STB_GLOBAL_CONFLICT/tester.py'), bin
+    ],
+    depends: [bin],
+    workdir: meson.project_source_root() / 'tests/STB_GLOBAL_CONFLICT'
+)
